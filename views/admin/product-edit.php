@@ -59,12 +59,27 @@ $product = $product ?? [
                     </div>
 
                     <div class="mb-3">
-                        <label>Ảnh</label>
-                        <input type="file" name="image" class="form-control" accept="image/*">
+                        <label class="form-label">Ảnh hiện tại</label>
+                        <br>
 
                         <?php if (!empty($product['image'])): ?>
-                            <p class="mt-2">Ảnh hiện tại: <?= $product['image'] ?></p>
+                            <img src="<?= BASE_ASSETS_UPLOADS . $product['image'] ?>"
+                                width="150"
+                                style="border-radius:8px;border:1px solid #ddd;padding:4px;">
+                        <?php else: ?>
+                            <span class="text-danger">Chưa có ảnh</span>
                         <?php endif; ?>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">
+                            Chọn ảnh mới (nếu muốn thay)
+                        </label>
+
+                        <input type="file"
+                            name="image"
+                            class="form-control"
+                            accept="image/*">
                     </div>
 
                     <div class="mb-3">

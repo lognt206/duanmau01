@@ -54,11 +54,13 @@ $categories = $categories ?? [];
                             class="form-control"
                             required>
                     </div>
-
                     <div class="mb-3">
-                        <label>Ảnh</label>
+                        <label class="form-label">Ảnh sản phẩm</label>
 
-                        <input type="file" name="image" class="form-control" accept="image/*">
+                        <input type="file"
+                            name="image"
+                            class="form-control"
+                            accept="image/*">
                     </div>
 
                     <div class="mb-3">

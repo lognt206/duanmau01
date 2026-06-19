@@ -77,7 +77,12 @@
             <div class="row">
                 <div class="col-md-5">
                     <div class="product-img">
-                        Ảnh sản phẩm
+                        <?php if (!empty($product['image'])): ?>
+                            <img src="<?= BASE_ASSETS_UPLOADS . $product['image'] ?>"
+                                style="width:100%;height:100%;object-fit:cover;">
+                        <?php else: ?>
+                            Ảnh sản phẩm
+                        <?php endif; ?>
                     </div>
                 </div>
 
@@ -97,14 +102,18 @@
                         Đặt mua
                     </a>
 
-                    <a href="<?= BASE_URL ?>" class="btn btn-secondary">
+                    <a href="javascript:history.back()"
+                        class="btn btn-secondary">
                         Quay lại
                     </a>
                 </div>
             </div>
         <?php else: ?>
             <h3>Không tìm thấy sản phẩm</h3>
-            <a href="<?= BASE_URL ?>" class="btn btn-secondary">Quay lại</a>
+            <a href="javascript:history.back()"
+                class="btn btn-secondary">
+                Quay lại
+            </a>
         <?php endif; ?>
 
     </div>

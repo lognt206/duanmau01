@@ -179,7 +179,7 @@ class HomeController
 
                 move_uploaded_file(
                     $_FILES['image']['tmp_name'],
-                    'uploads/' . $image
+                    PATH_ASSETS_UPLOADS . $image
                 );
             }
 
@@ -210,17 +210,15 @@ class HomeController
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-            // Giữ ảnh cũ nếu không chọn ảnh mới
-            $image = $product['image'] ?? '';
+            $image = $product['image'];
 
-            // Nếu có chọn ảnh mới thì upload ảnh mới
             if (!empty($_FILES['image']['name'])) {
 
                 $image = time() . '_' . $_FILES['image']['name'];
 
                 move_uploaded_file(
                     $_FILES['image']['tmp_name'],
-                    'uploads/' . $image
+                    PATH_ASSETS_UPLOADS . $image
                 );
             }
 

@@ -24,7 +24,7 @@
         }
 
         .top {
-            height: 45px;
+            height: 55px;
             background: #f7f7f7;
             border-bottom: 1px solid #ddd;
         }
@@ -54,40 +54,69 @@
 
         .product-card {
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             text-align: center;
-            margin-bottom: 28px;
-            padding-bottom: 20px;
+            margin-bottom: 30px;
             background: #fff;
-            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
             overflow: hidden;
+            transition: 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.15);
         }
 
         .product-img {
-            height: 210px;
-            background: linear-gradient(135deg, #e0e0e0, #f7f7f7);
+            height: 330px;
+            background: #f1f1f1;
+            overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.3s;
+        }
+
+        .product-img img:hover {
+            transform: scale(1.05);
+        }
+
+        .no-img {
             color: #777;
+            font-weight: bold;
+        }
+
+        .product-info {
+            padding: 18px 12px 22px;
         }
 
         .product-card h5 {
-            margin-top: 15px;
-            font-size: 16px;
+            font-size: 17px;
             font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .product-card h5 a {
+            color: #111;
+            text-decoration: none;
+        }
+
+        .product-card h5 a:hover {
+            color: #dc3545;
         }
 
         .price {
             color: red;
             font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .detail-btn {
-            border-radius: 4px;
-            padding: 6px 16px;
-            font-size: 13px;
+            font-size: 16px;
+            margin-bottom: 0;
         }
 
         .footer {
@@ -106,9 +135,13 @@
 
     <div class="top">
         <div class="container d-flex justify-content-between align-items-center h-100">
-            <strong>Tiano Shop</strong>
+            <a href="<?= BASE_URL ?>">
+                <img src="<?= BASE_ASSETS_UPLOADS ?>logo.png"
+                     alt="Tiano Shop"
+                     style="height:50px;">
+            </a>
 
-            <form method="GET" class="d-flex">
+            <form method="GET" action="<?= BASE_URL ?>" class="d-flex">
                 <input type="hidden" name="act" value="products">
 
                 <input class="form-control form-control-sm me-1"
@@ -160,18 +193,30 @@
             <?php foreach ($products as $item): ?>
                 <div class="col-md-4">
                     <div class="product-card">
-                        <div class="product-img">Ảnh sản phẩm</div>
 
-                        <h5><?= $item['name'] ?></h5>
+                        <a href="<?= BASE_URL ?>?act=detail&id=<?= $item['id'] ?>">
+                            <div class="product-img">
+                                <?php if (!empty($item['image'])): ?>
+                                    <img src="<?= BASE_ASSETS_UPLOADS . $item['image'] ?>"
+                                         alt="<?= $item['name'] ?>">
+                                <?php else: ?>
+                                    <span class="no-img">Chưa có ảnh</span>
+                                <?php endif; ?>
+                            </div>
+                        </a>
 
-                        <div class="price">
-                            <?= number_format($item['price']) ?> VNĐ
+                        <div class="product-info">
+                            <h5>
+                                <a href="<?= BASE_URL ?>?act=detail&id=<?= $item['id'] ?>">
+                                    <?= $item['name'] ?>
+                                </a>
+                            </h5>
+
+                            <div class="price">
+                                <?= number_format($item['price']) ?> VNĐ
+                            </div>
                         </div>
 
-                        <a href="<?= BASE_URL ?>?act=detail&id=<?= $item['id'] ?>"
-                           class="btn btn-dark btn-sm detail-btn">
-                            Chi tiết
-                        </a>
                     </div>
                 </div>
             <?php endforeach; ?>

@@ -7,6 +7,7 @@ $product = $product ?? [
 $success = $success ?? '';
 
 ?>
+
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -40,64 +41,81 @@ $success = $success ?? '';
 
 <body>
 
-    <div class="box">
+<div class="box">
 
-        <h3>
-            Đặt mua:
-            <?= $product['name'] ?>
-        </h3>
+    <h3>
+        Đặt mua:
+        <?= $product['name'] ?>
+    </h3>
 
-        <?php if (!empty($success)): ?>
+    <?php if (!empty($success)): ?>
 
-            <div class="alert alert-success">
-                <?= $success ?>
-            </div>
+        <div class="alert alert-success">
+            <?= $success ?>
+        </div>
+
+        <div class="d-flex gap-2">
 
             <a href="<?= BASE_URL ?>"
-                class="btn btn-dark">
+               class="btn btn-dark">
                 Về trang chủ
             </a>
 
-        <?php else: ?>
+            <a href="<?= BASE_URL ?>?act=products"
+               class="btn btn-secondary">
+                Tiếp tục mua
+            </a>
 
-            <form method="POST">
+        </div>
 
-                <div class="mb-3">
-                    <label>Họ tên</label>
-                    <input type="text"
-                        class="form-control"
-                        name="name"
-                        required>
-                </div>
+    <?php else: ?>
 
-                <div class="mb-3">
-                    <label>Số điện thoại</label>
-                    <input type="text"
-                        class="form-control"
-                        name="phone"
-                        required>
-                </div>
+        <form method="POST">
 
-                <div class="mb-3">
-                    <label>Địa chỉ giao hàng</label>
+            <div class="mb-3">
+                <label>Họ tên</label>
+                <input type="text"
+                       class="form-control"
+                       name="name"
+                       required>
+            </div>
 
-                    <textarea
-                        class="form-control"
-                        rows="4"
-                        name="address"
-                        required></textarea>
-                </div>
+            <div class="mb-3">
+                <label>Số điện thoại</label>
+                <input type="text"
+                       class="form-control"
+                       name="phone"
+                       required>
+            </div>
+
+            <div class="mb-3">
+                <label>Địa chỉ giao hàng</label>
+
+                <textarea
+                    class="form-control"
+                    rows="4"
+                    name="address"
+                    required></textarea>
+            </div>
+
+            <div class="d-flex gap-2">
 
                 <button class="btn btn-success">
                     Xác nhận mua
                 </button>
 
-            </form>
+                <a href="javascript:history.back()"
+                   class="btn btn-secondary">
+                    Quay lại
+                </a>
 
-        <?php endif; ?>
+            </div>
 
-    </div>
+        </form>
+
+    <?php endif; ?>
+
+</div>
 
 </body>
-
 </html>
