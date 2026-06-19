@@ -51,4 +51,26 @@ class BaseModel
 
         return $stmt->fetchAll();
     }
+    public function createUser($data)
+    {
+        $sql = "INSERT INTO users (role_id, name, email, password, phone, address)
+            VALUES (:role_id, :name, :email, :password, :phone, :address)";
+
+        $stmt = $this->pdo->prepare($sql);
+
+        return $stmt->execute($data);
+    }
+
+    public function findUserByEmail($email)
+    {
+        $sql = "SELECT * FROM users WHERE email = :email";
+
+        $stmt = $this->pdo->prepare($sql);
+
+        $stmt->execute([
+            'email' => $email
+        ]);
+
+        return $stmt->fetch();
+    }
 }
