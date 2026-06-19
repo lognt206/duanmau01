@@ -110,4 +110,30 @@ class HomeController
 
         require_once PATH_VIEW . 'client/register.php';
     }
+    public function logout()
+    {
+        unset($_SESSION['user']);
+
+        header('Location: ' . BASE_URL);
+        exit;
+    }
+    public function introduce()
+    {
+        require_once PATH_VIEW . 'client/introduce.php';
+    }
+
+    public function contact()
+    {
+        require_once PATH_VIEW . 'client/contact.php';
+    }
+
+    public function account()
+    {
+        if (empty($_SESSION['user'])) {
+            header('Location: ' . BASE_URL . '?act=login');
+            exit;
+        }
+
+        require_once PATH_VIEW . 'client/account.php';
+    }
 }
