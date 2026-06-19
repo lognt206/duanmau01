@@ -41,4 +41,14 @@ class BaseModel
         $stmt->execute(['id' => $id]);
         return $stmt->fetch();
     }
+    public function searchProducts($keyword)
+    {
+        $sql = "SELECT * FROM products WHERE name LIKE :keyword";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([
+            'keyword' => '%' . $keyword . '%'
+        ]);
+
+        return $stmt->fetchAll();
+    }
 }
