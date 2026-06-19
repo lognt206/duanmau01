@@ -73,4 +73,45 @@ class BaseModel
 
         return $stmt->fetch();
     }
+    public function createContact($data)
+    {
+        $sql = "INSERT INTO contacts (name, email, message)
+            VALUES (:name, :email, :message)";
+
+        $stmt = $this->pdo->prepare($sql);
+
+        return $stmt->execute($data);
+    }
+    public function insertProduct($data)
+    {
+        $sql = "INSERT INTO products (category_id, name, price, image, description)
+            VALUES (:category_id, :name, :price, :image, :description)";
+
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute($data);
+    }
+
+    public function updateProduct($id, $data)
+    {
+        $sql = "UPDATE products
+            SET category_id = :category_id,
+                name = :name,
+                price = :price,
+                image = :image,
+                description = :description
+            WHERE id = :id";
+
+        $data['id'] = $id;
+
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute($data);
+    }
+
+    public function delete($table, $id)
+    {
+        $sql = "DELETE FROM $table WHERE id = :id";
+
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute(['id' => $id]);
+    }
 }
