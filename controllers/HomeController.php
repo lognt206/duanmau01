@@ -124,6 +124,19 @@ class HomeController
 
     public function contact()
     {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $data = [
+                'name' => $_POST['name'] ?? '',
+                'email' => $_POST['email'] ?? '',
+                'message' => $_POST['message'] ?? '',
+            ];
+
+            $model = new BaseModel();
+            $model->createContact($data);
+
+            $success = 'Gửi liên hệ thành công!';
+        }
+
         require_once PATH_VIEW . 'client/contact.php';
     }
 
@@ -150,5 +163,109 @@ class HomeController
         }
 
         require_once PATH_VIEW . 'client/order.php';
+    }
+    public function adminProductCreate()
+    {
+        $model = new BaseModel();
+        $categories = $model->getAll('categories');
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+            $image = '';
+
+            if (!empty($_FILES['image']['name'])) {
+
+                $image = time() . '_' . $_FILES['image']['name'];
+
+                move_uploaded_file(
+                    $_FILES['image']['tmp_name'],
+                    'uploads/' . $image
+                );
+            }
+
+            $data = [
+                'category_id' => $_POST['category_id'],
+                'name' => $_POST['name'],
+                'price' => $_POST['price'],
+                'image' => $image,
+                'description' => $_POST['description'] ?? '',
+            ];
+
+            $model->insertProduct($data);
+
+            header('Location: ' . BASE_URL . '?act=admin-products');
+            exit;
+        }
+
+        require_once PATH_VIEW . 'admin/product-create.php';
+    }
+
+    public function adminProductEdit()
+    {
+        $id = $_GET['id'] ?? 0;
+
+        $model = new BaseModel();
+        $product = $model->find('products', (int)$id);
+        $categories = $model->getAll('categories');
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+            // Giữ ảnh cũ nếu không chọn ảnh mới
+            $image = $product['image'] ?? '';
+
+            // Nếu có chọn ảnh mới thì upload ảnh mới
+            if (!empty($_FILES['image']['name'])) {
+
+                $image = time() . '_' . $_FILES['image']['name'];
+
+                move_uploaded_file(
+                    $_FILES['image']['tmp_name'],
+                    'uploads/' . $image
+                );
+            }
+
+            $data = [
+                'category_id' => $_POST['category_id'],
+                'name' => $_POST['name'],
+                'price' => $_POST['price'],
+                'image' => $image,
+                'description' => $_POST['description'] ?? '',
+            ];
+
+            $model->updateProduct((int)$id, $data);
+
+            header('Location: ' . BASE_URL . '?act=admin-products');
+            exit;
+        }
+
+        require_once PATH_VIEW . 'admin/product-edit.php';
+    }
+
+    public function adminProductDelete()
+    {
+        $id = $_GET['id'] ?? 0;
+
+        $model = new BaseModel();
+        $model->delete('products', (int)$id);
+
+        header('Location: ' . BASE_URL . '?act=admin-products');
+        exit;
+    }
+    public function adminCategories()
+    {
+        $model = new BaseModel();
+
+        $categories = $model->getAll('categories');
+
+        require_once PATH_VIEW . 'admin/categories.php';
+    }
+
+    public function adminUsers()
+    {
+        $model = new BaseModel();
+
+        $users = $model->getAll('users');
+
+        require_once PATH_VIEW . 'admin/users.php';
     }
 }

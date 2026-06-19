@@ -17,6 +17,11 @@ match ($act) {
     'logout' => (new HomeController())->logout(),
 
     'admin-products' => (new HomeController())->adminProducts(),
+    'admin-product-create' => (new HomeController())->adminProductCreate(),
+    'admin-product-edit' => (new HomeController())->adminProductEdit(),
+    'admin-product-delete' => (new HomeController())->adminProductDelete(),
 
+    'admin-categories' => (new HomeController())->adminCategories(),
+    'admin-users' => (new HomeController())->adminUsers(),
     default => die('404 - Không tìm thấy trang'),
 };
