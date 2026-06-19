@@ -136,4 +136,19 @@ class HomeController
 
         require_once PATH_VIEW . 'client/account.php';
     }
+    public function order()
+    {
+        $id = $_GET['id'] ?? 0;
+
+        $model = new BaseModel();
+        $product = $model->find('products', (int)$id);
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $success = 'Đặt hàng thành công!';
+            require_once PATH_VIEW . 'client/order.php';
+            return;
+        }
+
+        require_once PATH_VIEW . 'client/order.php';
+    }
 }

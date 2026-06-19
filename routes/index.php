@@ -6,6 +6,7 @@ match ($act) {
     '/' => (new HomeController())->index(),
     'products' => (new HomeController())->products(),
     'detail' => (new HomeController())->detail(),
+    'order' => (new HomeController())->order(),
 
     'introduce' => (new HomeController())->introduce(),
     'contact' => (new HomeController())->contact(),

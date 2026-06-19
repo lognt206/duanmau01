@@ -20,10 +20,9 @@
         .menu a {
             color: white;
             text-decoration: none;
-            padding: 12px 22px;
+            padding: 14px 24px;
             display: inline-block;
             font-weight: bold;
-            font-size: 13px;
         }
 
         .menu a:hover {
@@ -93,7 +92,10 @@
                         <?= $product['description'] ?>
                     </p>
 
-                    <button class="btn btn-dark">Đặt mua</button>
+                    <a href="<?= BASE_URL ?>?act=order&id=<?= $product['id'] ?>"
+                        class="btn btn-dark">
+                        Đặt mua
+                    </a>
 
                     <a href="<?= BASE_URL ?>" class="btn btn-secondary">
                         Quay lại
