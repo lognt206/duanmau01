@@ -32,17 +32,26 @@ adminHeader('Admin - Quản lý sản phẩm');
                     <td><?= $item['id'] ?></td>
                     <td><?= $item['name'] ?></td>
                     <td><?= number_format($item['price']) ?> VNĐ</td>
-                    <td><?= $item['image'] ?></td>
+                    <td>
+                        <?php if (!empty($item['image'])): ?>
+                            <img src="<?= BASE_ASSETS_UPLOADS . $item['image'] ?>"
+                                width="90"
+                                height="70"
+                                style="object-fit:cover;border-radius:6px;">
+                        <?php else: ?>
+                            Chưa có ảnh
+                        <?php endif; ?>
+                    </td>
                     <td><?= $item['description'] ?></td>
                     <td>
                         <a href="<?= BASE_URL ?>?act=admin-product-edit&id=<?= $item['id'] ?>"
-                           class="btn btn-warning btn-sm">
+                            class="btn btn-warning btn-sm">
                             Sửa
                         </a>
 
                         <a href="<?= BASE_URL ?>?act=admin-product-delete&id=<?= $item['id'] ?>"
-                           onclick="return confirm('Bạn có chắc muốn xóa?')"
-                           class="btn btn-danger btn-sm">
+                            onclick="return confirm('Bạn có chắc muốn xóa?')"
+                            class="btn btn-danger btn-sm">
                             Xóa
                         </a>
                     </td>
