@@ -87,12 +87,12 @@
                 </a>
             </div>
         </div>
-    <?php else: ?>
+    <?php else: ?> 
         <h3>Không tìm thấy sản phẩm</h3>
         <a href="<?= BASE_URL ?>" class="btn btn-secondary">Quay lại</a>
     <?php endif; ?>
 
 </div>
-
+    
 </body>
 </html>
