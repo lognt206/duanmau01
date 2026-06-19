@@ -4,17 +4,33 @@
     <meta charset="UTF-8">
     <title>Đăng ký - Tiano Shop</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: #f3f3f3;
+            font-family: Arial, sans-serif;
+        }
+        .register-box {
+            max-width: 500px;
+            margin: 60px auto;
+            background: white;
+            padding: 35px;
+            border-radius: 10px;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.1);
+        }
+        h3 {
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="container mt-5" style="max-width: 500px;">
-    <h3 class="text-center mb-4">Đăng ký tài khoản</h3>
+<div class="register-box">
+    <h3>Đăng ký tài khoản</h3>
 
     <?php if (!empty($error)): ?>
-        <div class="alert alert-danger">
-            <?= $error ?>
-        </div>
+        <div class="alert alert-danger"><?= $error ?></div>
     <?php endif; ?>
 
     <form method="POST">

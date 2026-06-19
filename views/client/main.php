@@ -26,10 +26,9 @@
         .menu a {
             color: white;
             text-decoration: none;
-            padding: 12px 22px;
+            padding: 14px 24px;
             display: inline-block;
             font-weight: bold;
-            font-size: 13px;
         }
 
         .menu a:hover {
