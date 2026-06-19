@@ -80,7 +80,7 @@
                     </a>
                 </div>
             </div>
-        <?php endforeach; ?>
+        <?php endforeach; ?> 
     </div>
 </div>
 

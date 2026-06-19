@@ -9,4 +9,4 @@ match ($act) {
     'admin-products' => (new HomeController())->adminProducts(),
 
     default => die('404 - Không tìm thấy trang'),
-};
+};   
