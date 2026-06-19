@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <title>Chi tiết sản phẩm</title>
@@ -50,49 +51,62 @@
 
 <body>
 
-<div class="menu">
-    <a href="<?= BASE_URL ?>">Trang chủ</a>
-    <a href="<?= BASE_URL ?>">Sản phẩm</a>
-    <a href="#">Giới thiệu</a>
-    <a href="#">Liên hệ</a>
-    <a href="#">Quản lý</a>
-    <a href="#">Thông tin tài khoản</a>
-</div>
+    <div class="menu">
+        <a href="<?= BASE_URL ?>">Trang chủ</a>
+        <a href="<?= BASE_URL ?>?act=products">Sản phẩm</a>
+        <a href="<?= BASE_URL ?>?act=introduce">Giới thiệu</a>
+        <a href="<?= BASE_URL ?>?act=contact">Liên hệ</a>
 
-<div class="container mt-5">
+        <?php if (!empty($_SESSION['user']) && $_SESSION['user']['role_id'] == 1): ?>
+            <a href="<?= BASE_URL ?>?act=admin-products">Quản lý</a>
+        <?php endif; ?>
 
-    <?php if (!empty($product)): ?>
-        <div class="row">
-            <div class="col-md-5">
-                <div class="product-img">
-                    Ảnh sản phẩm
+        <?php if (!empty($_SESSION['user'])): ?>
+            <a href="<?= BASE_URL ?>?act=account">
+                Xin chào, <?= $_SESSION['user']['name'] ?>
+            </a>
+            <a href="<?= BASE_URL ?>?act=logout">Đăng xuất</a>
+        <?php else: ?>
+            <a href="<?= BASE_URL ?>?act=login">Đăng nhập</a>
+            <a href="<?= BASE_URL ?>?act=register">Đăng ký</a>
+        <?php endif; ?>
+    </div>
+
+    <div class="container mt-5">
+
+        <?php if (!empty($product)): ?>
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="product-img">
+                        Ảnh sản phẩm
+                    </div>
+                </div>
+
+                <div class="col-md-7">
+                    <h2><?= $product['name'] ?></h2>
+
+                    <p class="price">
+                        <?= number_format($product['price']) ?> VNĐ
+                    </p>
+
+                    <p>
+                        <?= $product['description'] ?>
+                    </p>
+
+                    <button class="btn btn-dark">Đặt mua</button>
+
+                    <a href="<?= BASE_URL ?>" class="btn btn-secondary">
+                        Quay lại
+                    </a>
                 </div>
             </div>
+        <?php else: ?>
+            <h3>Không tìm thấy sản phẩm</h3>
+            <a href="<?= BASE_URL ?>" class="btn btn-secondary">Quay lại</a>
+        <?php endif; ?>
 
-            <div class="col-md-7">
-                <h2><?= $product['name'] ?></h2>
+    </div>
 
-                <p class="price">
-                    <?= number_format($product['price']) ?> VNĐ
-                </p>
-
-                <p>
-                    <?= $product['description'] ?>
-                </p>
-
-                <button class="btn btn-dark">Đặt mua</button>
-
-                <a href="<?= BASE_URL ?>" class="btn btn-secondary">
-                    Quay lại
-                </a>
-            </div>
-        </div>
-    <?php else: ?> 
-        <h3>Không tìm thấy sản phẩm</h3>
-        <a href="<?= BASE_URL ?>" class="btn btn-secondary">Quay lại</a>
-    <?php endif; ?>
-
-</div>
-    
 </body>
+
 </html>
