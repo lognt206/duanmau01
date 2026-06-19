@@ -1,7 +1,9 @@
 <?php
 
-$action = $_GET['action'] ?? '/';
+$act = $_GET['act'] ?? '/';
 
-match ($action) {
-    '/'         => (new HomeController)->index(),
+match ($act) {
+    '/' => (new HomeController())->index(),
+    'detail' => (new HomeController())->detail(),
+    default => die('404 - Không tìm thấy trang'),
 };
