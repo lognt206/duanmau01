@@ -114,4 +114,50 @@ class BaseModel
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute(['id' => $id]);
     }
+    public function getCommentsByProduct($productId)
+    {
+        $sql = "SELECT comments.*, users.name AS user_name
+            FROM comments
+            JOIN users ON comments.user_id = users.id
+            WHERE comments.product_id = :product_id
+            ORDER BY comments.id DESC";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([
+            'product_id' => $productId
+        ]);
+
+        return $stmt->fetchAll();
+    }
+
+    public function insertComment($data)
+    {
+        $sql = "INSERT INTO comments (product_id, user_id, content)
+            VALUES (:product_id, :user_id, :content)";
+
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute($data);
+    }
+
+    public function getAllComments()
+    {
+        $sql = "SELECT comments.*, users.name AS user_name, products.name AS product_name
+            FROM comments
+            JOIN users ON comments.user_id = users.id
+            JOIN products ON comments.product_id = products.id
+            ORDER BY comments.id DESC";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
+    public function countTable($table)
+    {
+        $sql = "SELECT COUNT(*) AS total FROM $table";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetch()['total'];
+    }
 }

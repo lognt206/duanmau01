@@ -16,6 +16,8 @@ match ($act) {
     'register' => (new HomeController())->register(),
     'logout' => (new HomeController())->logout(),
 
+    'admin-dashboard' => (new HomeController())->adminDashboard(),
+
     'admin-products' => (new HomeController())->adminProducts(),
     'admin-product-create' => (new HomeController())->adminProductCreate(),
     'admin-product-edit' => (new HomeController())->adminProductEdit(),
@@ -23,5 +25,11 @@ match ($act) {
 
     'admin-categories' => (new HomeController())->adminCategories(),
     'admin-users' => (new HomeController())->adminUsers(),
+
+    'admin-comments' => (new HomeController())->adminComments(),
+    'admin-comment-delete' => (new HomeController())->adminCommentDelete(),
+
+    'admin-contacts' => (new HomeController())->adminContacts(),
+    'admin-contact-delete' => (new HomeController())->adminContactDelete(),
     default => die('404 - Không tìm thấy trang'),
 };

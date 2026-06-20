@@ -69,10 +69,20 @@ function adminHeader($title = 'Admin')
         <div class="sidebar">
             <h3>TIANO ADMIN</h3>
 
+            <a href="<?= BASE_URL ?>?act=admin-dashboard">Dashboard</a>
+
             <a href="<?= BASE_URL ?>?act=admin-products">Quản lý sản phẩm</a>
+
             <a href="<?= BASE_URL ?>?act=admin-categories">Quản lý danh mục</a>
+
             <a href="<?= BASE_URL ?>?act=admin-users">Quản lý tài khoản</a>
+
+            <a href="<?= BASE_URL ?>?act=admin-comments">Quản lý bình luận</a>
+
+            <a href="<?= BASE_URL ?>?act=admin-contacts">Quản lý liên hệ</a>
+
             <a href="<?= BASE_URL ?>">Xem website</a>
+
             <a href="<?= BASE_URL ?>?act=logout">Đăng xuất</a>
         </div>
 

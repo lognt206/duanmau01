@@ -29,6 +29,28 @@ class HomeController
         $model = new BaseModel();
         $product = $model->find('products', (int)$id);
 
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (!empty($_SESSION['user'])) {
+                $data = [
+                    'product_id' => (int)$id,
+                    'user_id' => $_SESSION['user']['id'],
+                    'content' => $_POST['content'] ?? '',
+                ];
+
+                if ($data['content'] != '') {
+                    $model->insertComment($data);
+                }
+
+                header('Location: ' . BASE_URL . '?act=detail&id=' . $id);
+                exit;
+            } else {
+                header('Location: ' . BASE_URL . '?act=login');
+                exit;
+            }
+        }
+
+        $comments = $model->getCommentsByProduct((int)$id);
+
         require_once PATH_VIEW . 'client/detail.php';
     }
     public function adminProducts()
@@ -265,5 +287,54 @@ class HomeController
         $users = $model->getAll('users');
 
         require_once PATH_VIEW . 'admin/users.php';
+    }
+    public function adminComments()
+    {
+        $model = new BaseModel();
+        $comments = $model->getAllComments();
+
+        require_once PATH_VIEW . 'admin/comments.php';
+    }
+
+    public function adminCommentDelete()
+    {
+        $id = $_GET['id'] ?? 0;
+
+        $model = new BaseModel();
+        $model->delete('comments', (int)$id);
+
+        header('Location: ' . BASE_URL . '?act=admin-comments');
+        exit;
+    }
+    public function adminDashboard()
+    {
+        $model = new BaseModel();
+
+        $totalProducts = $model->countTable('products');
+        $totalCategories = $model->countTable('categories');
+        $totalUsers = $model->countTable('users');
+        $totalComments = $model->countTable('comments');
+        $totalContacts = $model->countTable('contacts');
+
+        require_once PATH_VIEW . 'admin/dashboard.php';
+    }
+    public function adminContacts()
+    {
+        $model = new BaseModel();
+
+        $contacts = $model->getAll('contacts');
+
+        require_once PATH_VIEW . 'admin/contacts.php';
+    }
+
+    public function adminContactDelete()
+    {
+        $id = $_GET['id'] ?? 0;
+
+        $model = new BaseModel();
+        $model->delete('contacts', (int)$id);
+
+        header('Location: ' . BASE_URL . '?act=admin-contacts');
+        exit;
     }
 }
